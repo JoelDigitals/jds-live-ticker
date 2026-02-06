@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ ticker.title }}{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto space-y-6">
+
+    <!-- Header -->
+    <div class="bg-white p-6 rounded-xl shadow">
+        <h1 class="text-3xl font-bold">{{ ticker.title }}</h1>
+        <p class="text-gray-600 mt-2">{{ ticker.description }}</p>
+    </div>
+
+    <!-- Neues Ereignis -->
+    <div class="bg-white p-6 rounded-xl shadow">
+        <h2 class="text-xl font-semibold mb-4">➕ Neues Ereignis</h2>
+
+        <form method="POST" class="space-y-4">
+            {% csrf_token %}
+
+            {{ event_form.time }}
+            {{ event_form.title }}
+            {{ event_form.text }}
+            {{ event_form.link }}
+            {{ event_form.link_label }}
+
+            <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                Ereignis hinzufügen
+            </button>
+        </form>
+    </div>
+
+
+    <!-- Ereignisse -->
+    <div class="bg-white p-6 rounded-xl shadow">
+        <h2 class="text-xl font-semibold mb-4">📡 Ereignisse</h2>
+
+        <ul class="space-y-6">
+            {% for event in events %}
+            <li class="border-b pb-4">
+                <div class="flex gap-4 items-start">
+                    <div class="font-mono text-blue-600">
+                        {{ event.time|time:"H:i" }}
+                    </div>
+
+                    <div>
+                        <h3 class="font-semibold text-lg">
+                            {{ event.title }}
+                        </h3>
+
+                        <p class="text-gray-700">
+                            {{ event.text }}
+                        </p>
+
+                        {% if event.link %}
+                            <a href="{{ event.link }}"
+                               target="_blank"
+                               class="inline-block mt-2 text-blue-600 hover:underline">
+                                {{ event.link_label|default:"Mehr erfahren →" }}
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </li>
+            {% empty %}
+            <li class="text-gray-500">Noch keine Ereignisse.</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+
+    <div class="bg-white p-6 rounded-xl shadow space-y-4">
+    <h2 class="text-xl font-semibold">🔗 Einbettungscode</h2>
+
+    <select id="styleSelect" class="border p-2 rounded w-full">
+        <option value="timeline">Timeline</option>
+        <option value="cards">Cards</option>
+        <option value="minimal">Minimal</option>
+        <option value="football">Fußball</option>
+        <option value="hadnball">Handball</option>
+    </select>
+
+<pre id="embedCode" class="bg-gray-900 text-green-400 p-4 rounded text-sm overflow-x-auto">
+&lt;iframe
+    src="{{ request.scheme }}://{{ request.get_host }}{% url 'liveticker_embed' ticker.id %}?style=timeline"
+    width="100%"
+    height="400"
+    style="border:none;"
+    loading="lazy"&gt;
+&lt;/iframe&gt;
+</pre>
+
+    <button onclick="copyEmbed()"
+        class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+        📋 Code kopieren
+    </button>
+</div>
+
+<script>
+const select = document.getElementById('styleSelect');
+const codeBox = document.getElementById('embedCode');
+
+select.addEventListener('change', () => {
+    const style = select.value;
+    codeBox.textContent =
+`<iframe
+    src="{{ request.scheme }}://{{ request.get_host }}{% url 'liveticker_embed' ticker.id %}?style=${style}"
+    width="100%"
+    height="400"
+    style="border:none;"
+    loading="lazy">
+</iframe>`;
+});
+
+function copyEmbed() {
+    navigator.clipboard.writeText(codeBox.textContent);
+    alert("Embed-Code kopiert!");
+}
+</script>
+
+
+</div>
+{% endblock %}

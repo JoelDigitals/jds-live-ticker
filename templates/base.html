@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}LiveTicker{% endblock %}</title>
+    
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Optional: Tailwind Konfiguration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {},
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-100 font-sans text-gray-900 min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-blue-600 text-white p-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="{% url 'liveticker_list' %}" class="font-bold text-xl">LiveTicker</a>
+            <nav>
+                {% if user.is_authenticated %}
+                    <span class="mr-4">Hallo, {{ user.username }}</span>
+                    <a href="{% url 'logout' %}" class="bg-red-500 hover:bg-red-600 px-3 py-1 rounded">Logout</a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="bg-green-500 hover:bg-green-600 px-3 py-1 rounded mr-2">Login</a>
+                    <a href="{% url 'register' %}" class="bg-yellow-500 hover:bg-yellow-600 px-3 py-1 rounded">Registrieren</a>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto p-6 flex-grow">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white p-4 mt-8 text-center">
+        LiveTicker &copy; 2026 Joel Digitals
+    </footer>
+
+</body>
+</html>

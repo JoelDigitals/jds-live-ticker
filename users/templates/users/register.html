@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Registrieren{% endblock %}
+{% block content %}
+<div class="max-w-md mx-auto bg-white p-6 rounded shadow">
+    <h2 class="text-2xl font-bold mb-4 text-center">Registrieren</h2>
+    <form method="POST" class="space-y-4">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <div>
+            {{ form.username.label_tag }}
+            {{ form.username|add_class:"w-full p-2 border rounded" }}
+        </div>
+        <div>
+            {{ form.password1.label_tag }}
+            {{ form.password1|add_class:"w-full p-2 border rounded" }}
+        </div>
+        <div>
+            {{ form.password2.label_tag }}
+            {{ form.password2|add_class:"w-full p-2 border rounded" }}
+        </div>
+        <button type="submit" class="w-full bg-green-600 text-white p-2 rounded hover:bg-green-700">Registrieren</button>
+    </form>
+    <p class="mt-4 text-center">Bereits ein Konto? <a href="{% url 'login' %}" class="text-blue-600 hover:underline">Login</a></p>
+</div>
+{% endblock %}

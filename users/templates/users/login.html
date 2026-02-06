@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<div class="max-w-md mx-auto bg-white p-6 rounded shadow">
+    <h2 class="text-2xl font-bold mb-4 text-center">Login</h2>
+    <form method="POST" class="space-y-4">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <div>
+            {{ form.username.label_tag }}
+            {{ form.username|add_class:"w-full p-2 border rounded" }}
+            {{ form.username.errors }}
+        </div>
+        <div>
+            {{ form.password.label_tag }}
+            {{ form.password|add_class:"w-full p-2 border rounded" }}
+            {{ form.password.errors }}
+        </div>
+        <button type="submit" class="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700">Login</button>
+    </form>
+    <p class="mt-4 text-center">Noch kein Konto? <a href="{% url 'register' %}" class="text-blue-600 hover:underline">Registrieren</a></p>
+</div>
+{% endblock %}

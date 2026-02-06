@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}Meine LiveTicker{% endblock %}
+{% block content %}
+<h1 class="text-3xl font-bold mb-6">Meine LiveTicker</h1>
+<a href="{% url 'liveticker_create' %}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Neuen Ticker erstellen</a>
+<ul class="mt-6 space-y-4">
+    {% for ticker in tickers %}
+    <li class="bg-white p-4 rounded shadow flex justify-between items-center">
+        <span>{{ ticker.title }} ({{ ticker.get_ticker_type_display }})</span>
+        <div class="space-x-2">
+            <a href="{% url 'liveticker_detail' ticker.pk %}" class="text-blue-600 hover:underline">Details</a>
+            <a href="{% url 'liveticker_embed' ticker.pk %}" class="text-green-600 hover:underline">Embed</a>
+        </div>
+    </li>
+    {% empty %}
+    <li class="text-gray-500">Keine LiveTicker vorhanden.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

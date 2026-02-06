@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}LiveTicker erstellen{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-lg">
+    <h1 class="text-3xl font-bold mb-6 text-center">
+        📝 LiveTicker erstellen
+    </h1>
+
+    <form method="POST" class="space-y-6">
+        {% csrf_token %}
+
+        <div>
+            <label class="block font-semibold mb-1">
+                Titel
+            </label>
+            {{ form.title }}
+            {{ form.title.errors }}
+        </div>
+
+        <div>
+            <label class="block font-semibold mb-1">
+                Beschreibung
+            </label>
+            {{ form.description }}
+            {{ form.description.errors }}
+        </div>
+
+        <div>
+            <label class="block font-semibold mb-1">
+                Ticker-Typ
+            </label>
+            {{ form.ticker_type }}
+            {{ form.ticker_type.errors }}
+        </div>
+
+        <div class="flex justify-between items-center pt-6">
+            <a href="{% url 'liveticker_list' %}" class="text-gray-600 hover:underline">
+                ← Abbrechen
+            </a>
+
+            <button type="submit"
+                class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition">
+                LiveTicker erstellen
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

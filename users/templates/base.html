@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}LiveTicker{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body class="bg-gray-100 font-sans text-gray-900">
+    <header class="bg-blue-600 text-white p-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="{% url 'liveticker_list' %}" class="font-bold text-xl">LiveTicker</a>
+            <nav>
+                {% if user.is_authenticated %}
+                    <span class="mr-4">Hallo, {{ user.username }}</span>
+                    <a href="{% url 'logout' %}" class="bg-red-500 hover:bg-red-600 px-3 py-1 rounded">Logout</a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="bg-green-500 hover:bg-green-600 px-3 py-1 rounded mr-2">Login</a>
+                    <a href="{% url 'register' %}" class="bg-yellow-500 hover:bg-yellow-600 px-3 py-1 rounded">Registrieren</a>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+    <main class="container mx-auto p-6">
+        {% block content %}{% endblock %}
+    </main>
+    <footer class="bg-gray-800 text-white p-4 mt-8 text-center">
+        LiveTicker &copy; 2026 Joel Digitals
+    </footer>
+</body>
+</html>
