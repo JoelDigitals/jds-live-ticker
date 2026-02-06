@@ -34,7 +34,7 @@ SECRET_KEY = 'django-insecure-u=z-+5b!l9!%+-_kxz7g3=gdm%n5z+8xy+0-!_ldiys3+=vmm8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "jds-live-ticker.onrender.com"]
 
 
 # Application definition
