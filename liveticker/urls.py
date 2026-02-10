@@ -16,9 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from users import views  # Importiere die Views aus der users App
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('register/callback/', views.sso_callback, name='sso_callback'),
     path('accounts/', include('users.urls')),
     path('', include('liveticker_app.urls')),
 ]

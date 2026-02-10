@@ -18,6 +18,9 @@
         </div>
         <button type="submit" class="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700">Login</button>
     </form>
+    <a href="{% url 'sso_login' %}">
+        <img class="sign-in responsive-img" src="https://joel-digitals.de/static/button-sing-in.png" alt="Joel Digitals Logo">
+    </a>
     <p class="mt-4 text-center">Noch kein Konto? <a href="{% url 'register' %}" class="text-blue-600 hover:underline">Registrieren</a></p>
 </div>
 {% endblock %}

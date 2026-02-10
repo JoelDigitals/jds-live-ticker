@@ -32,7 +32,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-u=z-+5b!l9!%+-_kxz7g3=gdm%n5z+8xy+0-!_ldiys3+=vmm8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["127.0.0.1", "localhost", "jds-live-ticker.onrender.com"]
 
@@ -82,6 +82,10 @@ WSGI_APPLICATION = 'liveticker.wsgi.application'
 
 X_FRAME_OPTIONS = 'ALLOWALL'
 
+SSO_PROVIDER_URL = "https://joel-digitals.de"  # Oder http://127.0.0.1:8001 für lokal
+SSO_CLIENT_ID = "kZP3RHLlc637Qt5F02UT1FIEoRyPOvTLi5G1GGJM1r2Iv0iRUv"
+SSO_CLIENT_SECRET = "LBv61ZfqAvLHoJ7VszoIzPhivKPs5fauHRbAm9EYDFpxM5c5uusQRaYOqjIVJJ4c9ZBOGqOU5a1J5GW0spGyuIVqOpVX"
+SSO_CALLBACK_URL = "https://jds-live-ticker.onrender.com/accounts/register/callback/"
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
